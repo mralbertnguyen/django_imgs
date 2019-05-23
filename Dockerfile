@@ -6,7 +6,9 @@ MAINTAINER Alert Nguyen Ltd
 
 ENV PYTHONUNBUFFERED 1
 
-# install all the depend
+# install all the dependencies for psycopg2
+RUN brew intall build-dep python-psycopg2
+
 COPY ./requirements.txt /requirements.txt
 
 RUN pip install -r /requirements.txt
@@ -17,3 +19,5 @@ COPY ./app /app
 
 RUN adduser -D albert
 USER albert
+
+# add db 

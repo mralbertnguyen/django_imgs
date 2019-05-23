@@ -1,6 +1,17 @@
 version: "3"
 
 services:
+ db:
+  image: postgres
+  container_name: postgresql
+  environment:
+   - POSTGRES_USER=albert
+   - POSTGRES_PASSWORD=admin
+   - POSTGRES_DB=db
+  ports:
+   - "54320:5432"
+  volumes:
+   - database:/var/lib/postgresql/data
  app:
   build:
    context: .
@@ -10,3 +21,7 @@ services:
    - ./app:/app
   command: >
    sh -c "python manage.py runserver 0.0.0.0:8000"
+  depends_on:
+   - db
+volumes:
+ database:
