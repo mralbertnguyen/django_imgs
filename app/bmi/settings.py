@@ -11,10 +11,11 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# This can be used to toggle between your local testing db (db.sqlite3) and the PostgreSQL backend:
+DOCKER = True
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -31,7 +32,6 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework', # Config RESTAPI
+    'rest_framework',  # Config RESTAPI
 ]
 
 
@@ -77,16 +77,35 @@ WSGI_APPLICATION = 'bmi.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME',''),
-        'USER': os.environ.get('DB_USER',''),
-        'PASSWORD': os.environ.get('DB_PASSWORD',''),
-        'HOST':'localhost',
-        'PORT':'54320'
+        'NAME': 'db',
+        'USER': 'albert',
+        'PASSWORD':'admin@123',
+        'HOST': 'localhost',
+        'PORT': 54320,
     }
 }
+# if DOCKER:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql',
+#             'NAME': os.environ.get('DB_NAME', ''),
+#             'USER': os.environ.get('DB_USER', ''),
+#             'PASSWORD': os.environ.get('DB_PASSWORD', ''),
+#             'HOST': 'localhost',
+#             'PORT': '54320'
+#         }
+#     }
+# else:
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 
 # Password validation

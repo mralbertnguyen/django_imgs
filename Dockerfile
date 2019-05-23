@@ -6,9 +6,13 @@ MAINTAINER Alert Nguyen Ltd
 
 ENV PYTHONUNBUFFERED 1
 
-# install all the dependencies for psycopg2
-RUN brew intall build-dep python-psycopg2
+# RUN apk update && \
+#     apk add --virtual build-deps gcc python-dev musl-dev && \
+#     apk add postgresql-dev
 
+# RUN pip install psycopg2
+
+RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev && pip install psycopg2
 COPY ./requirements.txt /requirements.txt
 
 RUN pip install -r /requirements.txt
