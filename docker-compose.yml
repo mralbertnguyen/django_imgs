@@ -1,27 +1,25 @@
-version: "3"
+version: '3'
 
 services:
- db:
-  image: postgres
-  container_name: postgresql
-  environment:
-   - POSTGRES_USER=albert
-   - POSTGRES_PASSWORD=admin
-   - POSTGRES_DB=db
-  ports:
-   - "54320:5432"
-  volumes:
-   - database:/var/lib/postgresql/data
- app:
-  build:
-   context: .
-  ports:
-   - "8000:8000"
-  volumes:
-   - ./app:/app
-  command: >
-   sh -c "python manage.py runserver 0.0.0.0:8000"
-  depends_on:
-   - db
-volumes:
- database:
+  db:
+    image: postgres
+    container_name: postgresql
+    # volumes:
+      # - db-data:/var/lib/postgresql/data
+    ports:
+      - "54320:5432"
+    # environment:
+    #   - POSTGRES_DB: db
+    #   - POSTGRES_USER: albert
+    #   - POSTGRES_PASSWORD: admin@123
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+# volumes: 
+#   db-data
