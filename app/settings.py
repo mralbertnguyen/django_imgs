@@ -20,10 +20,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'qu+b^ud$djvg6c3$o7gmv8pv42wva(ngv_w+&y^!dzf&9k!l2i'
+SECRET_KEY = '5oy0yog#c%dnk_vii^b%^!-as$m&o#*$oiesi^ijzu=g$6k1g*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -72,13 +72,12 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
 DOCKER = True
 DB_NAME = 'postgres'
 DB_USER = 'postgres'
-DB_PASS = ''
+DB_PASSWORD = 'admin'
 DB_HOST = 'db'
-DB_PORT = '5432'
+DB_PORT = 5432
 
 if DOCKER:
     DATABASES = {
@@ -86,6 +85,7 @@ if DOCKER:
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': DB_NAME,
             'USER': DB_USER,
+            'PASSWORD': DB_PASSWORD,
             'HOST': DB_HOST,
             'PORT': DB_PORT
         }
